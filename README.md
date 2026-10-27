@@ -75,9 +75,10 @@ sh install-efi.sh
 ```
 
 1. 三个 .efi → `/boot/efi/EFI/UNLOCK/`(可用 `ESP=<挂载点>` 覆盖);
-2. 从 `grub.cfg` 抽取 PVE 原条目,生成 `/etc/grub.d/40-cmp40hx`:
-   - `PVE + CMP40HX UNLOCK (compute, ...)`
-   - `PVE + CMP40HX UNLOCK (full, ...)`
+2. 从 `grub.cfg` 抽取 PVE 原条目,生成 `/etc/grub.d/40-cmp40hx`,三个菜单项:
+   - `PVE + CMP40HX UNLOCK (inspect, ...)` —— 只读诊断,**零风险**,第一次先用它
+   - `PVE + CMP40HX UNLOCK (compute, ...)` —— 最小解锁(全套寄存器 + 1 次 SBR)
+   - `PVE + CMP40HX UNLOCK (full, ...)` —— 对齐 Windows 完整解锁(3 次 SBR)
    - 原 PVE 条目保留 = 不解锁(工厂状态),随时可退回;
 3. `update-grub`。
 
